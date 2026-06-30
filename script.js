@@ -123,11 +123,63 @@ const initFrameHero = () => {
   let canvasHeight = 0;
 
   const frameSrc = (index) => `assets/hero-door-frames/frame_${String(index).padStart(4, "0")}.jpg`;
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const getFrameView = () => {
+    if (window.innerWidth <= 520) return { scale: 1, focalX: 0.55, focalY: 0.5 };
+    if (window.innerWidth <= 860) return { scale: 1, focalX: 0.53, focalY: 0.5 };
+    return { scale: 1, focalX: 0.5, focalY: 0.34 };
+  };
+  const getCoverRect = (imgRatio, view) => {
+    const canvasRatio = canvasWidth / canvasHeight;
+    let drawWidth;
+    let drawHeight;
+
+    if (canvasRatio > imgRatio) {
+      drawWidth = canvasWidth;
+      drawHeight = canvasWidth / imgRatio;
+    } else {
+      drawHeight = canvasHeight;
+      drawWidth = canvasHeight * imgRatio;
+    }
+
+    drawWidth *= view.scale;
+    drawHeight *= view.scale;
+
+    return {
+      x: clamp(canvasWidth * view.focalX - drawWidth * view.focalX, canvasWidth - drawWidth, 0),
+      y: clamp(canvasHeight * view.focalY - drawHeight * view.focalY, canvasHeight - drawHeight, 0),
+      width: drawWidth,
+      height: drawHeight
+    };
+  };
+  const drawMobileFrame = (img, imgRatio) => {
+    const background = getCoverRect(imgRatio, { scale: 1.08, focalX: 0.5, focalY: 0.5 });
+    const foregroundHeight = Math.min(canvasHeight * 0.58, canvasWidth * 1.22);
+    const foregroundWidth = foregroundHeight * imgRatio;
+    const foregroundX = clamp(canvasWidth * 0.5 - foregroundWidth * 0.5, canvasWidth - foregroundWidth, 0);
+    const foregroundY = Math.min(Math.max(72, canvasHeight * 0.08), canvasHeight * 0.12);
+
+    ctx.save();
+    ctx.filter = "blur(14px)";
+    ctx.drawImage(
+      img,
+      background.x - 24,
+      background.y - 24,
+      background.width + 48,
+      background.height + 48
+    );
+    ctx.restore();
+
+    ctx.fillStyle = "rgba(8, 12, 17, 0.22)";
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.drawImage(img, foregroundX, foregroundY, foregroundWidth, foregroundHeight);
+  };
 
   const resizeCanvas = () => {
     const dpr = window.devicePixelRatio || 1;
-    canvasWidth = window.innerWidth;
-    canvasHeight = window.innerHeight;
+    const rect = canvas.getBoundingClientRect();
+    canvasWidth = Math.max(1, rect.width || window.innerWidth);
+    canvasHeight = Math.max(1, rect.height || window.innerHeight);
     canvas.width = Math.round(canvasWidth * dpr);
     canvas.height = Math.round(canvasHeight * dpr);
     canvas.style.width = `${canvasWidth}px`;
@@ -143,28 +195,15 @@ const initFrameHero = () => {
 
     currentFrame = index;
     const imgRatio = img.naturalWidth / img.naturalHeight;
-    const canvasRatio = canvasWidth / canvasHeight;
-    let drawWidth;
-    let drawHeight;
-
-    if (canvasRatio > imgRatio) {
-      drawWidth = canvasWidth;
-      drawHeight = canvasWidth / imgRatio;
-    } else {
-      drawHeight = canvasHeight;
-      drawWidth = canvasHeight * imgRatio;
-    }
-
-    if (window.innerWidth <= 768) {
-      drawWidth *= 1.3;
-      drawHeight *= 1.3;
-    }
-
-    const drawX = (canvasWidth - drawWidth) / 2;
-    const drawY = (canvasHeight - drawHeight) / 2;
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+    if (window.innerWidth <= 600) {
+      drawMobileFrame(img, imgRatio);
+      return;
+    }
+
+    const frame = getCoverRect(imgRatio, getFrameView());
+    ctx.drawImage(img, frame.x, frame.y, frame.width, frame.height);
   };
 
   const updateHero = () => {
