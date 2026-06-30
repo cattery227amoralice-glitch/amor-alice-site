@@ -159,7 +159,7 @@ const initFrameHero = () => {
     const foregroundY = Math.min(Math.max(72, canvasHeight * 0.08), canvasHeight * 0.12);
 
     ctx.save();
-    ctx.filter = "blur(34px) saturate(0.75) brightness(0.62)";
+    ctx.filter = "blur(36px) saturate(0.9) brightness(0.9)";
     ctx.drawImage(
       img,
       background.x - 72,
@@ -169,12 +169,13 @@ const initFrameHero = () => {
     );
     ctx.restore();
 
-    ctx.fillStyle = "rgba(8, 12, 17, 0.42)";
+    ctx.fillStyle = "rgba(8, 12, 17, 0.16)";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     const fade = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-    fade.addColorStop(0, "rgba(8, 12, 17, 0.42)");
-    fade.addColorStop(0.38, "rgba(8, 12, 17, 0.08)");
-    fade.addColorStop(1, "rgba(8, 12, 17, 0.62)");
+    fade.addColorStop(0, "rgba(8, 12, 17, 0.2)");
+    fade.addColorStop(0.38, "rgba(8, 12, 17, 0)");
+    fade.addColorStop(0.7, "rgba(8, 12, 17, 0.08)");
+    fade.addColorStop(1, "rgba(8, 12, 17, 0.46)");
     ctx.fillStyle = fade;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.drawImage(img, foregroundX, foregroundY, foregroundWidth, foregroundHeight);

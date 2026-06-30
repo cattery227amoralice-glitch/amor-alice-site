@@ -161,9 +161,9 @@ a {
 
 .hero-shade {
   background:
-    radial-gradient(circle at 68% 32%, rgba(255, 255, 255, 0.08), rgba(17, 24, 33, 0) 34%),
-    linear-gradient(90deg, rgba(17, 24, 33, 0.76) 0%, rgba(17, 24, 33, 0.26) 48%, rgba(17, 24, 33, 0.08) 100%),
-    linear-gradient(0deg, rgba(17, 24, 33, 0.72) 0%, rgba(17, 24, 33, 0) 46%);
+    radial-gradient(circle at 68% 32%, rgba(255, 255, 255, 0.12), rgba(17, 24, 33, 0) 36%),
+    linear-gradient(90deg, rgba(17, 24, 33, 0.56) 0%, rgba(17, 24, 33, 0.18) 42%, rgba(17, 24, 33, 0.02) 100%),
+    linear-gradient(0deg, rgba(17, 24, 33, 0.58) 0%, rgba(17, 24, 33, 0.12) 36%, rgba(17, 24, 33, 0) 58%);
 }
 
 .hero-content {
@@ -172,6 +172,17 @@ a {
   width: min(620px, 100%);
   transition: opacity 160ms ease, transform 160ms ease;
   will-change: opacity, transform;
+}
+
+.hero-content::before {
+  content: "";
+  position: absolute;
+  inset: -34px -40px -28px -46px;
+  z-index: -1;
+  border-radius: 28px;
+  background: radial-gradient(ellipse at 24% 64%, rgba(8, 12, 17, 0.58), rgba(8, 12, 17, 0.32) 46%, rgba(8, 12, 17, 0) 74%);
+  filter: blur(8px);
+  pointer-events: none;
 }
 
 .hero-loader {
@@ -1159,8 +1170,15 @@ details p {
 
   .hero-shade {
     background:
-      linear-gradient(0deg, rgba(17, 24, 33, 0.82) 0%, rgba(17, 24, 33, 0.24) 68%),
-      linear-gradient(90deg, rgba(17, 24, 33, 0.5), rgba(17, 24, 33, 0.06));
+      linear-gradient(0deg, rgba(17, 24, 33, 0.62) 0%, rgba(17, 24, 33, 0.18) 46%, rgba(17, 24, 33, 0.02) 76%),
+      radial-gradient(ellipse at 24% 80%, rgba(17, 24, 33, 0.5), rgba(17, 24, 33, 0) 60%),
+      linear-gradient(90deg, rgba(17, 24, 33, 0.2), rgba(17, 24, 33, 0.02));
+  }
+
+  .hero-content::before {
+    inset: -24px -18px -22px -18px;
+    border-radius: 22px;
+    background: radial-gradient(ellipse at 28% 70%, rgba(8, 12, 17, 0.56), rgba(8, 12, 17, 0.28) 48%, rgba(8, 12, 17, 0) 76%);
   }
 
   .scroll-cue {
