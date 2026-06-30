@@ -1,9 +1,15 @@
 const header = document.querySelector("[data-header]");
+const frameHero = document.querySelector("[data-frame-hero]");
 const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 
 const syncHeader = () => {
-  header?.classList.toggle("is-scrolled", window.scrollY > 12);
+  if (!header) return;
+  const headerHeight = header.offsetHeight || 0;
+  const isPastHero = frameHero
+    ? frameHero.getBoundingClientRect().bottom <= headerHeight
+    : window.scrollY > 12;
+  header.classList.toggle("is-scrolled", isPastHero);
 };
 
 syncHeader();
