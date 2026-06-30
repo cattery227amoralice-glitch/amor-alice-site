@@ -113,7 +113,6 @@ const initFrameHero = () => {
   const heroText = section.querySelector("[data-hero-text]");
   const loader = section.querySelector("[data-frame-loader]");
   const loaderBar = section.querySelector("[data-frame-loader-bar]");
-  const annotations = [...section.querySelectorAll("[data-annotation]")];
   const frameCount = 120;
   const frames = [];
   let loadedCount = 0;
@@ -153,24 +152,30 @@ const initFrameHero = () => {
     };
   };
   const drawMobileFrame = (img, imgRatio) => {
-    const background = getCoverRect(imgRatio, { scale: 1.08, focalX: 0.5, focalY: 0.5 });
+    const background = getCoverRect(imgRatio, { scale: 1.14, focalX: 0.5, focalY: 0.5 });
     const foregroundHeight = Math.min(canvasHeight * 0.58, canvasWidth * 1.22);
     const foregroundWidth = foregroundHeight * imgRatio;
     const foregroundX = clamp(canvasWidth * 0.5 - foregroundWidth * 0.5, canvasWidth - foregroundWidth, 0);
     const foregroundY = Math.min(Math.max(72, canvasHeight * 0.08), canvasHeight * 0.12);
 
     ctx.save();
-    ctx.filter = "blur(14px)";
+    ctx.filter = "blur(34px) saturate(0.75) brightness(0.62)";
     ctx.drawImage(
       img,
-      background.x - 24,
-      background.y - 24,
-      background.width + 48,
-      background.height + 48
+      background.x - 72,
+      background.y - 72,
+      background.width + 144,
+      background.height + 144
     );
     ctx.restore();
 
-    ctx.fillStyle = "rgba(8, 12, 17, 0.22)";
+    ctx.fillStyle = "rgba(8, 12, 17, 0.42)";
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    const fade = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+    fade.addColorStop(0, "rgba(8, 12, 17, 0.42)");
+    fade.addColorStop(0.38, "rgba(8, 12, 17, 0.08)");
+    fade.addColorStop(1, "rgba(8, 12, 17, 0.62)");
+    ctx.fillStyle = fade;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.drawImage(img, foregroundX, foregroundY, foregroundWidth, foregroundHeight);
   };
@@ -219,12 +224,6 @@ const initFrameHero = () => {
       heroText.style.opacity = String(textOpacity);
       heroText.style.transform = `translateY(${-18 * Math.min(progress / 0.08, 1)}px)`;
     }
-
-    annotations.forEach((card) => {
-      const show = Number(card.dataset.show);
-      const hide = Number(card.dataset.hide);
-      card.classList.toggle("is-visible", progress >= show && progress <= hide);
-    });
   };
 
   const requestUpdate = () => {
