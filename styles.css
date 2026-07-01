@@ -548,6 +548,17 @@ h1 {
   background: #fff;
 }
 
+.animal-card-link {
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.animal-card-link:hover,
+.animal-card-link:focus-visible {
+  border-color: rgba(184, 138, 63, 0.38);
+  box-shadow: 0 18px 48px rgba(17, 24, 33, 0.12);
+  transform: translateY(-3px);
+}
+
 .animal-card img {
   aspect-ratio: 4 / 3;
 }
@@ -579,6 +590,21 @@ h1 {
 
 .animal-card h3 {
   font-size: 1.25rem;
+}
+
+.card-link-text {
+  display: inline-flex;
+  width: max-content;
+  margin-top: auto;
+  padding-top: 16px;
+  color: var(--rose-deep);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.card-link-text::after {
+  content: ">";
+  margin-left: 8px;
 }
 
 .status-available {
@@ -707,6 +733,103 @@ h1 {
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+}
+
+.parent-detail-hero {
+  background:
+    linear-gradient(120deg, rgba(17, 24, 33, 0.86), rgba(17, 24, 33, 0.52)),
+    url("assets/generated/intro-world.jpg") center / cover;
+}
+
+.parent-detail-hero .subpage-hero-media img {
+  aspect-ratio: 1 / 1;
+}
+
+.parent-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.52fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.parent-story {
+  display: grid;
+  gap: 28px;
+}
+
+.parent-story h2,
+.parent-profile-card h2 {
+  font-size: 2rem;
+}
+
+.parent-story p,
+.parent-profile-card p,
+.parent-profile-card dd {
+  color: var(--muted);
+}
+
+.parent-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.parent-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--rose-deep);
+  background: #fff4ee;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.parent-profile-card {
+  position: sticky;
+  top: 96px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(17, 24, 33, 0.08);
+}
+
+.parent-profile-card dl {
+  display: grid;
+  gap: 16px;
+  margin: 22px 0 0;
+}
+
+.parent-profile-card div {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.parent-profile-card div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.parent-profile-card dt {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.parent-next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.parent-next .text-link {
+  margin-top: 0;
 }
 
 .support-book-promo {
@@ -1203,10 +1326,15 @@ details p {
   .flow-layout,
   .faq-layout,
   .contact-grid,
+  .parent-detail-grid,
   .support-book-promo,
   .subpage-hero-inner,
   .footer-inner {
     grid-template-columns: 1fr;
+  }
+
+  .parent-profile-card {
+    position: static;
   }
 
   .intro-grid {
