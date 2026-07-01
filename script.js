@@ -110,6 +110,80 @@ const renderKittenLists = () => {
 
 renderKittenLists();
 
+const initVisitForm = () => {
+  const form = document.querySelector("[data-visit-form]");
+  if (!form) return;
+
+  const status = form.querySelector("[data-form-status]");
+  const copyButton = form.querySelector("[data-copy-form]");
+  const requestType = form.elements.requestType;
+  const getFormValue = (formData, name) => String(formData.get(name) || "").trim();
+  const setStatus = (message) => {
+    if (status) status.textContent = message;
+  };
+  const buildMessage = () => {
+    const formData = new FormData(form);
+    const rows = [
+      ["お名前", getFormValue(formData, "name")],
+      ["ふりがな", getFormValue(formData, "kana")],
+      ["メールアドレス", getFormValue(formData, "email")],
+      ["電話番号", getFormValue(formData, "tel")],
+      ["連絡しやすい方法", getFormValue(formData, "preferredContact")],
+      ["ご相談内容", getFormValue(formData, "requestType")],
+      ["気になる子・希望", getFormValue(formData, "interest")],
+      ["お住まい", getFormValue(formData, "area")],
+      ["見学希望日 第1希望", getFormValue(formData, "visitDate1")],
+      ["見学希望日 第2希望", getFormValue(formData, "visitDate2")],
+      ["希望時間帯", getFormValue(formData, "timeSlot")],
+      ["見学予定人数", getFormValue(formData, "people")],
+      ["先住猫・先住犬", getFormValue(formData, "residentPets")],
+      ["猫の飼育経験", getFormValue(formData, "experience")],
+      ["ご質問・ご相談", getFormValue(formData, "message")]
+    ];
+
+    return [
+      "Amor Alice 見学申し込み",
+      "",
+      ...rows.map(([label, value]) => `${label}: ${value || "未入力"}`),
+      "",
+      "送信前に、入力内容に間違いがないかご確認ください。"
+    ].join("\n");
+  };
+
+  const formMode = new URLSearchParams(window.location.search).get("type");
+  if (requestType && formMode === "birth") {
+    requestType.value = "出産予約";
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    const name = getFormValue(formData, "name") || "お客様";
+    const subject = `見学申し込み：${name} 様`;
+    const body = buildMessage();
+    const mailto = `mailto:cattery227.amor.alice@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setStatus("メールアプリが開きます。送信前に内容をご確認ください。");
+    window.location.href = mailto;
+  });
+
+  copyButton?.addEventListener("click", async () => {
+    if (!form.reportValidity()) return;
+
+    const body = buildMessage();
+    try {
+      await navigator.clipboard.writeText(body);
+      setStatus("入力内容をコピーしました。LINEやメールに貼り付けて送れます。");
+    } catch (error) {
+      setStatus("コピーできませんでした。メール作成ボタンをご利用ください。");
+    }
+  });
+};
+
+initVisitForm();
+
 const initFrameHero = () => {
   const section = document.querySelector("[data-frame-hero]");
   if (!section) return;
