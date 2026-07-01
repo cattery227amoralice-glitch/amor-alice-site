@@ -24,6 +24,10 @@
   background: #07090d;
 }
 
+.hero-video-bg {
+  display: none;
+}
+
 .video-hero .hero-shade {
   background:
     linear-gradient(90deg, rgba(17, 24, 33, 0.62) 0%, rgba(17, 24, 33, 0.22) 44%, rgba(17, 24, 33, 0.04) 100%),
@@ -40,6 +44,7 @@
 
 @media (max-width: 860px) {
   .video-hero-stage {
+    align-items: start;
     padding: 98px 22px 48px;
   }
 
@@ -51,7 +56,33 @@
 }
 
 @media (max-width: 600px) {
-  .hero-video {
-    object-position: center;
+  .hero-video-bg {
+    display: block;
+    inset: -34px;
+    width: calc(100% + 68px);
+    height: calc(100% + 68px);
+    filter: blur(28px) saturate(0.9) brightness(0.62);
+    transform: scale(1.04);
+  }
+
+  .hero-video-main {
+    inset: 78px 16px auto;
+    width: calc(100% - 32px);
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    object-fit: contain;
+    box-shadow: 0 22px 64px rgba(0, 0, 0, 0.34);
+  }
+
+  .video-hero .hero-shade {
+    background:
+      linear-gradient(0deg, rgba(17, 24, 33, 0.8) 0%, rgba(17, 24, 33, 0.48) 42%, rgba(17, 24, 33, 0.08) 72%),
+      linear-gradient(90deg, rgba(17, 24, 33, 0.18), rgba(17, 24, 33, 0.02));
+  }
+
+  .video-hero .hero-content {
+    align-self: start;
+    margin-top: calc((100vw - 32px) * 0.5625 + 8px);
   }
 }
