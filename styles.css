@@ -832,6 +832,87 @@ h1 {
   margin-top: 0;
 }
 
+.reservation {
+  background: linear-gradient(180deg, #fffdf8 0%, #f6fbf8 100%);
+}
+
+.reservation-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(320px, 0.72fr);
+  gap: 46px;
+  align-items: center;
+}
+
+.reservation-copy h2 {
+  font-size: 2.35rem;
+}
+
+.reservation-copy p,
+.reservation-steps p,
+.reservation-note {
+  color: var(--muted);
+}
+
+.reservation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.reservation-actions .text-link {
+  margin-top: 0;
+}
+
+.reservation-note {
+  margin: 18px 0 0;
+  font-size: 0.92rem;
+}
+
+.reservation-steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reservation-steps li {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 14px 38px rgba(17, 24, 33, 0.07);
+}
+
+.reservation-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(173, 98, 95, 0.18);
+  border-radius: 8px;
+  background: #fff9ef;
+}
+
+.reservation-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.reservation-steps h3 {
+  font-size: 1.1rem;
+}
+
+.reservation-steps p {
+  margin: 6px 0 0;
+}
+
 .support-book-promo {
   display: grid;
   grid-template-columns: minmax(0, 0.88fr) minmax(320px, 0.62fr);
@@ -1327,6 +1408,7 @@ details p {
   .faq-layout,
   .contact-grid,
   .parent-detail-grid,
+  .reservation-layout,
   .support-book-promo,
   .subpage-hero-inner,
   .footer-inner {
@@ -1356,6 +1438,7 @@ details p {
 
   .intro-copy h2,
   .section-heading h2,
+  .reservation-copy h2,
   .support-book-copy h2,
   .photo-break-copy h2,
   .contact h2 {
