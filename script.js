@@ -116,6 +116,71 @@ const renderKittenLists = () => {
 
 renderKittenLists();
 
+const createBlogCard = (post) => {
+  const article = document.createElement("article");
+  article.className = "blog-card";
+
+  if (post.image) {
+    const figure = document.createElement("figure");
+    const image = document.createElement("img");
+    image.src = post.image;
+    image.alt = post.imageAlt || "";
+    figure.append(image);
+    article.append(figure);
+  }
+
+  const body = document.createElement("div");
+  body.className = "blog-card-body";
+
+  const meta = document.createElement("div");
+  meta.className = "blog-card-meta";
+
+  const tag = createTextElement("span", "", post.tag || "Blog");
+  const date = document.createElement("time");
+  date.textContent = post.date || "";
+  if (/^\d{4}\.\d{2}\.\d{2}$/.test(post.date || "")) {
+    date.dateTime = post.date.replace(/\./g, "-");
+  }
+  meta.append(tag, date);
+
+  const title = createTextElement("h3", "", post.title || "記事タイトル未定");
+  const summary = createTextElement("p", "", post.summary || "内容を準備中です。");
+
+  body.append(meta, title, summary);
+  article.append(body);
+
+  return article;
+};
+
+const renderBlogCategory = (container, posts, emptyMessage) => {
+  if (!container) return;
+  const visiblePosts = posts.filter((post) => post.visible !== false);
+
+  if (visiblePosts.length === 0) {
+    const empty = createTextElement("p", "blog-empty", emptyMessage);
+    container.replaceChildren(empty);
+    return;
+  }
+
+  container.replaceChildren(...visiblePosts.map(createBlogCard));
+};
+
+const renderBlogPosts = () => {
+  const posts = Array.isArray(window.AmorAliceBlogPosts) ? window.AmorAliceBlogPosts : [];
+  renderBlogCategory(
+    document.querySelector("[data-news-list]"),
+    posts.filter((post) => post.category === "news"),
+    "ニュースは現在準備中です。"
+  );
+  renderBlogCategory(
+    document.querySelector("[data-letter-list]"),
+    posts.filter((post) => post.category === "letter"),
+    "里親様からのお便りは現在準備中です。"
+  );
+};
+
+renderBlogPosts();
+
 const initVisitForm = () => {
   const form = document.querySelector("[data-visit-form]");
   if (!form) return;

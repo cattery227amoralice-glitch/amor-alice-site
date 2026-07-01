@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ブログ | Amor Alice</title>
+    <meta
+      name="description"
+      content="Amor Aliceのニュースと、里親様からのお便りをまとめたブログページです。"
+    >
+    <link rel="stylesheet" href="styles.css?v=20260702-blog1">
+  </head>
+  <body class="subpage">
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html#top" aria-label="Amor Alice トップへ">
+        <img src="assets/brand-logo.png" alt="" class="brand-mark">
+        <span class="brand-name">Amor Alice</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        Menu
+      </button>
+      <nav class="site-nav" id="site-nav" data-nav>
+        <a href="index.html#kittens">子猫</a>
+        <a href="graduates.html">巣立った子たち</a>
+        <a href="index.html#parents">親猫</a>
+        <a href="index.html#flow">お迎え</a>
+        <a href="support-book.html">サポートブック</a>
+        <a href="blog.html" aria-current="page">ブログ</a>
+        <a href="index.html#faq">Q&A</a>
+        <a href="index.html#contact">お問い合わせ</a>
+      </nav>
+    </header>
+
+    <nav class="mobile-contact-bar" aria-label="スマホ用の主要導線">
+      <a href="index.html#kittens">子猫</a>
+      <a class="is-primary" href="visit-form.html?type=visit">見学申し込み</a>
+      <a href="https://lin.ee/4A4dqHU" target="_blank" rel="noopener">LINE</a>
+    </nav>
+
+    <main id="top">
+      <section class="subpage-hero blog-hero" aria-labelledby="blog-hero-title">
+        <div class="subpage-hero-inner">
+          <div class="subpage-hero-copy">
+            <p class="eyebrow">Blog</p>
+            <h1 id="blog-hero-title">ブログ</h1>
+            <p>
+              Amor Aliceからのお知らせと、里親様から届いた近況を分けて掲載していきます。
+              募集状況だけでは伝わりにくい、日々の空気やお迎え後の様子を残す場所です。
+            </p>
+            <div class="blog-hero-actions" aria-label="ブログ内の行き先">
+              <a class="button primary soft" href="#news">ニュースを見る</a>
+              <a class="button secondary ink" href="#letters">お便りを見る</a>
+            </div>
+          </div>
+          <figure class="subpage-hero-media">
+            <img src="assets/generated/intro-world.jpg" alt="青い扉の先に広がるAmor Aliceの世界">
+          </figure>
+        </div>
+      </section>
+
+      <section class="section blog-overview" aria-labelledby="blog-overview-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="eyebrow">Categories</p>
+            <h2 id="blog-overview-title">2つのカテゴリで更新します。</h2>
+            <p>
+              お知らせは「ニュース」、お迎え後の近況は「里親様からのお便り」に分けて整理します。
+              実際のお便りは、掲載許可をいただいた内容だけを個人情報に配慮して紹介します。
+            </p>
+          </div>
+
+          <div class="blog-category-grid">
+            <a class="blog-category-card" href="#news">
+              <span class="blog-category-icon"><img src="assets/generated/icon-envelope.png" alt=""></span>
+              <span class="blog-category-kicker">News</span>
+              <strong>ニュース</strong>
+              <span>募集状況、サイト更新、見学予約に関するお知らせをまとめます。</span>
+            </a>
+            <a class="blog-category-card" href="#letters">
+              <span class="blog-category-icon"><img src="assets/generated/icon-heart-bottle.png" alt=""></span>
+              <span class="blog-category-kicker">Letters</span>
+              <strong>里親様からのお便り</strong>
+              <span>お迎え後の暮らしや成長の様子を、許可をいただいた範囲で紹介します。</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-band blog-section" id="news" aria-labelledby="news-title">
+        <div class="section-inner">
+          <div class="section-heading left">
+            <p class="eyebrow">News</p>
+            <h2 id="news-title">ニュース</h2>
+            <p>Amor Aliceからのお知らせ、ページ更新、見学予約に関する情報です。</p>
+          </div>
+          <div class="blog-grid" data-news-list></div>
+        </div>
+      </section>
+
+      <section class="section blog-section" id="letters" aria-labelledby="letters-title">
+        <div class="section-inner">
+          <div class="section-heading left">
+            <p class="eyebrow">Letters</p>
+            <h2 id="letters-title">里親様からのお便り</h2>
+            <p>
+              掲載許可をいただいた近況だけを、個人情報が出ない形で紹介します。
+              新しいご家族のもとで過ごす様子を、少しずつ残していきます。
+            </p>
+          </div>
+          <div class="blog-grid" data-letter-list></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-brand">Amor Alice</p>
+          <p>Ragdoll Specialty Home Cattery</p>
+          <div class="footer-links" aria-label="連絡先リンク">
+            <a href="https://lin.ee/4A4dqHU" target="_blank" rel="noopener">LINE</a>
+            <a href="https://www.instagram.com/cattery_amor.alice/" target="_blank" rel="noopener">Instagram</a>
+            <a href="mailto:cattery227.amor.alice@gmail.com">Mail</a>
+            <a href="tel:09087426180">Tel</a>
+          </div>
+        </div>
+        <dl class="legal-list">
+          <div>
+            <dt>事業所名</dt>
+            <dd>Amor Alice</dd>
+          </div>
+          <div>
+            <dt>種別</dt>
+            <dd>第一種動物取扱業 販売</dd>
+          </div>
+          <div>
+            <dt>登録番号</dt>
+            <dd>23-香健福714-5</dd>
+          </div>
+          <div>
+            <dt>登録年月日</dt>
+            <dd>2024年1月30日</dd>
+          </div>
+          <div>
+            <dt>有効期限</dt>
+            <dd>2029年1月29日</dd>
+          </div>
+          <div>
+            <dt>動物取扱責任者</dt>
+            <dd>柴田 竜弥</dd>
+          </div>
+        </dl>
+      </div>
+    </footer>
+
+    <script src="blog-data.js"></script>
+    <script src="script.js?v=20260702-blog1"></script>
+  </body>
+</html>
