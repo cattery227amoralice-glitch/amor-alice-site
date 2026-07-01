@@ -161,7 +161,7 @@ const initVisitForm = () => {
 
     const formData = new FormData(form);
     const name = getFormValue(formData, "name") || "お客様";
-    const subject = `見学申し込み：${name} 様`;
+    const subject = `【HP問い合わせ】見学申し込み：${name} 様`;
     const body = buildMessage();
     const mailto = `mailto:cattery227.amor.alice@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
