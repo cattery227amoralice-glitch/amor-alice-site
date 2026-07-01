@@ -38,6 +38,10 @@ const heroVideo = document.querySelector("[data-hero-video]");
 heroVideo?.addEventListener("loadeddata", () => {
   videoHero?.classList.add("is-video-ready");
 });
+heroVideo?.addEventListener("ended", () => {
+  heroVideo.pause();
+  videoHero?.classList.add("is-video-ended");
+});
 const playPromise = heroVideo?.play?.();
 playPromise?.catch?.(() => {
   videoHero?.classList.add("is-video-paused");
