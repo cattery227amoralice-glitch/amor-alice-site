@@ -1468,6 +1468,10 @@ details p {
     padding-bottom: calc(68px + env(safe-area-inset-bottom));
   }
 
+  body.form-page {
+    padding-bottom: 0;
+  }
+
   .site-header {
     min-height: 64px;
     padding: 10px 18px;
