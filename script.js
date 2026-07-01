@@ -1,5 +1,6 @@
 const header = document.querySelector("[data-header]");
 const frameHero = document.querySelector("[data-frame-hero]");
+const mobileContactBar = document.querySelector("[data-mobile-contact-bar]");
 const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 
@@ -10,6 +11,11 @@ const syncHeader = () => {
     ? frameHero.getBoundingClientRect().bottom <= headerHeight
     : window.scrollY > 12;
   header.classList.toggle("is-scrolled", isPastHero);
+
+  if (mobileContactBar?.dataset.afterHero === "true" && frameHero) {
+    const heroDone = frameHero.getBoundingClientRect().bottom <= window.innerHeight + 4;
+    mobileContactBar.classList.toggle("is-visible", heroDone);
+  }
 };
 
 syncHeader();

@@ -1492,6 +1492,19 @@ details p {
     background: rgba(255, 253, 248, 0.94);
     box-shadow: 0 14px 44px rgba(17, 24, 33, 0.18);
     backdrop-filter: blur(18px);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .mobile-contact-bar[data-after-hero="true"] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + 24px));
+  }
+
+  .mobile-contact-bar[data-after-hero="true"].is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .mobile-contact-bar a {
