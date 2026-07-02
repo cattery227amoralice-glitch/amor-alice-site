@@ -55,27 +55,68 @@ const createKittenMeta = (label, value) => {
   return row;
 };
 
-const createKittenCard = (kitten) => {
+const createKittenTags = (tags = []) => {
+  const wrapper = document.createElement("div");
+  wrapper.className = "kitten-tags";
+  tags.forEach((tagText) => {
+    wrapper.append(createTextElement("span", "", tagText));
+  });
+  return wrapper;
+};
+
+const createKittenCardActions = (kitten, context) => {
+  const actions = document.createElement("div");
+  actions.className = "kitten-card-actions";
+
+  if (context === "graduates" || kitten.status === "お引き渡し済み") {
+    actions.append(createTextElement("span", "kitten-record-label", "巣立ち記録として掲載中"));
+    return actions;
+  }
+
+  const inquiry = document.createElement("a");
+  inquiry.className = "kitten-card-link";
+  inquiry.href = "visit-form.html?type=visit";
+  inquiry.textContent = "この子について相談";
+  actions.append(inquiry);
+
+  return actions;
+};
+
+const createKittenCard = (kitten, context = "index") => {
   const article = document.createElement("article");
   article.className = "animal-card kitten-card";
   if (kitten.status === "お引き渡し済み") {
     article.classList.add("is-graduated");
   }
 
+  const media = document.createElement("figure");
+  media.className = "kitten-card-media";
+
   const image = document.createElement("img");
   image.src = kitten.image;
   image.alt = kitten.alt || `${kitten.color || "ラグドール"}の子猫`;
+  media.append(image);
 
   const body = document.createElement("div");
   body.className = "animal-card-body";
+
+  const head = document.createElement("div");
+  head.className = "kitten-card-head";
 
   const status = createTextElement(
     "p",
     `card-kicker ${statusClassNames[kitten.status] || ""}`.trim(),
     kitten.status || "ステータス未定"
   );
+  const birth = createTextElement("span", "kitten-birth", kitten.birthDate || "誕生日未定");
+  head.append(status, birth);
 
   const name = createTextElement("h3", "", `幼名：${kitten.name || "未定"}`);
+  const subtitle = createTextElement(
+    "p",
+    "kitten-subtitle",
+    [kitten.color, kitten.sex].filter(Boolean).join(" / ") || "ラグドール"
+  );
 
   const meta = document.createElement("dl");
   meta.className = "kitten-meta";
@@ -85,10 +126,25 @@ const createKittenCard = (kitten) => {
     createKittenMeta("毛色", kitten.color)
   );
 
-  const note = createTextElement("p", "kitten-note", kitten.note || "成長に合わせて追記します");
+  const note = document.createElement("p");
+  note.className = "kitten-note";
+  note.append(
+    createTextElement("strong", "", "性格メモ"),
+    createTextElement("span", "", kitten.note || "成長に合わせて追記します")
+  );
 
-  body.append(status, name, meta, note);
-  article.append(image, body);
+  const appeal = createTextElement(
+    "p",
+    "kitten-appeal",
+    kitten.appeal || "写真や日々の様子を見ながら、見学時に詳しくご案内します。"
+  );
+
+  body.append(head, name, subtitle, meta, note, appeal);
+  if (Array.isArray(kitten.tags) && kitten.tags.length > 0) {
+    body.append(createKittenTags(kitten.tags));
+  }
+  body.append(createKittenCardActions(kitten, context));
+  article.append(media, body);
 
   return article;
 };
@@ -99,18 +155,68 @@ const renderKittenLists = () => {
   const kittenList = document.querySelector("[data-kitten-list]");
   const graduateList = document.querySelector("[data-graduate-list]");
   const kittenCount = document.querySelector("[data-kitten-count]");
+  const filterButtons = document.querySelectorAll("[data-kitten-filter]");
+  const filterLabel = document.querySelector("[data-kitten-filter-label]");
+  const totalCount = document.querySelector("[data-kitten-total]");
+  const availableCount = document.querySelector("[data-kitten-available]");
+  const talkCount = document.querySelector("[data-kitten-talk]");
+  const graduatedCount = document.querySelector("[data-kitten-graduated]");
 
   if (kittenCount) {
     kittenCount.textContent = `現在の掲載：${visibleKittens.length}匹`;
   }
 
+  const counts = {
+    all: visibleKittens.length,
+    available: visibleKittens.filter((kitten) => kitten.status === "ご家族募集中").length,
+    talk: visibleKittens.filter((kitten) => kitten.status === "商談中").length,
+    graduated: visibleKittens.filter((kitten) => kitten.status === "お引き渡し済み").length,
+  };
+
+  if (totalCount) totalCount.textContent = counts.all;
+  if (availableCount) availableCount.textContent = counts.available;
+  if (talkCount) talkCount.textContent = counts.talk;
+  if (graduatedCount) graduatedCount.textContent = counts.graduated;
+
+  const renderFilteredKittens = (filter = "all") => {
+    if (!kittenList) return;
+    const filteredKittens = filter === "all"
+      ? visibleKittens
+      : visibleKittens.filter((kitten) => kitten.status === filter);
+
+    if (filterLabel) {
+      filterLabel.textContent = filter === "all"
+        ? "すべての子猫を表示しています。"
+        : `${filter}の子猫を表示しています。`;
+    }
+
+    if (filteredKittens.length === 0) {
+      const empty = createTextElement(
+        "p",
+        "kitten-empty",
+        "現在、このステータスの掲載はありません。次回募集や出産予約は見学申し込みからご相談ください。"
+      );
+      kittenList.replaceChildren(empty);
+      return;
+    }
+
+    kittenList.replaceChildren(...filteredKittens.map((kitten) => createKittenCard(kitten, "index")));
+  };
+
   if (kittenList) {
-    kittenList.replaceChildren(...visibleKittens.map(createKittenCard));
+    renderFilteredKittens();
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+        renderFilteredKittens(button.dataset.kittenFilter || "all");
+      });
+    });
   }
 
   if (graduateList) {
     const graduates = visibleKittens.filter((kitten) => kitten.status === "お引き渡し済み");
-    graduateList.replaceChildren(...graduates.map(createKittenCard));
+    graduateList.replaceChildren(...graduates.map((kitten) => createKittenCard(kitten, "graduates")));
   }
 };
 

@@ -533,6 +533,78 @@ h1 {
   margin-top: 22px;
 }
 
+.kitten-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.kitten-stats span {
+  display: grid;
+  gap: 2px;
+  min-height: 68px;
+  padding: 10px;
+  border: 1px solid rgba(36, 48, 58, 0.1);
+  border-radius: 8px;
+  background: #fffdf8;
+  text-align: center;
+}
+
+.kitten-stats strong {
+  color: var(--rose-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.kitten-stats small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.kitten-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 18px;
+}
+
+.kitten-toolbar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.kitten-filter {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.kitten-filter button {
+  min-height: 38px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: #fff;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.kitten-filter button.is-active {
+  border-color: transparent;
+  color: #fff;
+  background: var(--rose-deep);
+}
+
 .card-grid {
   display: grid;
   gap: 18px;
@@ -563,8 +635,22 @@ h1 {
   transform: translateY(-3px);
 }
 
-.animal-card img {
+.animal-card img,
+.kitten-card-media img {
   aspect-ratio: 4 / 3;
+}
+
+.kitten-card-media {
+  margin: 0;
+}
+
+.kitten-card-media img {
+  height: auto;
+  object-fit: cover;
+}
+
+.kitten-card-head .card-kicker {
+  margin-bottom: 0;
 }
 
 .parent-card img {
@@ -575,7 +661,15 @@ h1 {
   display: flex;
   flex: 1;
   flex-direction: column;
+  gap: 10px;
   padding: 20px;
+}
+
+.kitten-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .card-kicker {
@@ -594,6 +688,21 @@ h1 {
 
 .animal-card h3 {
   font-size: 1.25rem;
+}
+
+.kitten-birth {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.kitten-subtitle {
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .card-link-text {
@@ -670,13 +779,89 @@ h1 {
 }
 
 .kitten-note {
-  margin: 16px 0 0;
+  display: grid;
+  gap: 4px;
+  margin: 6px 0 0;
   padding: 12px;
   border-left: 3px solid var(--rose);
   border-radius: 6px;
   color: var(--muted);
   background: #fff9ef;
   font-size: 0.95rem;
+}
+
+.kitten-note strong {
+  color: var(--rose-deep);
+  font-size: 0.82rem;
+}
+
+.kitten-note span {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.kitten-appeal {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.kitten-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.kitten-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  color: var(--rose-deep);
+  background: #fff4ee;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.kitten-card-actions {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.kitten-card-link,
+.kitten-record-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.kitten-card-link {
+  color: #fff;
+  background: var(--rose-deep);
+}
+
+.kitten-record-label {
+  color: var(--muted);
+  background: #f4f2ee;
+}
+
+.kitten-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  background: #fff;
+  font-weight: 700;
 }
 
 .animal-card p:last-child:not(.card-kicker) {
@@ -1802,6 +1987,19 @@ details p {
 
   .kitten-feature {
     padding: 16px;
+  }
+
+  .kitten-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kitten-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .kitten-filter {
+    justify-content: flex-start;
   }
 
   .subpage-hero {

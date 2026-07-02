@@ -8,7 +8,7 @@
       name="description"
       content="Amor Aliceは、ラグドールの健やかな成長とご家族との出会いを大切にするホームキャッテリーです。"
     >
-    <link rel="stylesheet" href="styles.css?v=20260702-blog1">
+    <link rel="stylesheet" href="styles.css?v=20260702-kittens1">
   </head>
   <body>
     <header class="site-header" data-header>
@@ -115,7 +115,7 @@
             <p class="eyebrow">Kittens</p>
             <h2 id="kittens-title">子猫情報</h2>
             <p>
-              現在の子猫たちを、幼名とステータスで見やすく整理しました。価格は掲載せず、気になる子がいる場合は見学相談からゆっくりご案内します。
+              募集中、商談中、巣立った子の記録をまとめています。価格は掲載せず、性格やご縁の状況を見ながら見学相談でゆっくりご案内します。
             </p>
           </div>
 
@@ -125,10 +125,16 @@
             </figure>
             <div class="feature-copy">
               <span class="status-pill"><img src="assets/generated/icon-paw.png" alt=""><span data-kitten-count>現在の掲載：5匹</span></span>
-              <h3>幼名は未定。性格が見えてきた子から、ていねいにご紹介します。</h3>
+              <h3>写真だけでなく、性格メモとご縁の状況まで見やすく。</h3>
               <p>
-                公開中のブリーダーページをもとに、直近の子猫情報を整理しています。成長やご縁の状況に合わせて、表示は随時更新していきます。
+                甘えん坊、おっとり、元気なところなど、日々見えてきた個性を短い言葉で残します。成長やご縁の状況に合わせて、表示は随時更新していきます。
               </p>
+              <div class="kitten-stats" aria-label="子猫掲載状況">
+                <span><strong data-kitten-total>5</strong><small>掲載中</small></span>
+                <span><strong data-kitten-available>0</strong><small>募集中</small></span>
+                <span><strong data-kitten-talk>1</strong><small>商談中</small></span>
+                <span><strong data-kitten-graduated>4</strong><small>巣立ち済み</small></span>
+              </div>
               <div class="status-legend" aria-label="子猫のステータス">
                 <span class="status-available">ご家族募集中</span>
                 <span class="status-talk">商談中</span>
@@ -138,6 +144,16 @@
                 <a class="button primary soft" href="visit-form.html?type=visit">見学申し込みフォームへ</a>
                 <a class="button secondary ink" href="graduates.html">巣立った子たちを見る</a>
               </div>
+            </div>
+          </div>
+
+          <div class="kitten-toolbar" aria-label="子猫一覧の表示切り替え">
+            <p data-kitten-filter-label>すべての子猫を表示しています。</p>
+            <div class="kitten-filter" role="group" aria-label="ステータスで絞り込み">
+              <button class="is-active" type="button" data-kitten-filter="all">すべて</button>
+              <button type="button" data-kitten-filter="ご家族募集中">募集中</button>
+              <button type="button" data-kitten-filter="商談中">商談中</button>
+              <button type="button" data-kitten-filter="お引き渡し済み">巣立ち済み</button>
             </div>
           </div>
 
@@ -441,7 +457,7 @@
       </div>
     </footer>
 
-    <script src="kittens-data.js"></script>
-    <script src="script.js?v=20260702-blog1"></script>
+    <script src="kittens-data.js?v=20260702-kittens1"></script>
+    <script src="script.js?v=20260702-kittens1"></script>
   </body>
 </html>
