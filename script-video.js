@@ -134,7 +134,17 @@ const renderKittenLists = () => {
   }
 
   if (kittenList) {
-    kittenList.replaceChildren(...visibleKittens.map(createKittenCard));
+    if (visibleKittens.length === 0) {
+      kittenList.replaceChildren(
+        createTextElement(
+          "p",
+          "kitten-empty",
+          "現在、子猫情報は掲載準備中です。写真とメモが整った子から、募集中・商談中・お引き渡し済みに分けて掲載します。"
+        )
+      );
+    } else {
+      kittenList.replaceChildren(...visibleKittens.map(createKittenCard));
+    }
   }
 };
 

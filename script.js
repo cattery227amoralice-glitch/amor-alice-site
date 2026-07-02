@@ -46,6 +46,16 @@ const createTextElement = (tagName, className, text) => {
   return element;
 };
 
+const emptyKittenMessages = {
+  all:
+    "現在、子猫情報は掲載準備中です。写真とメモが整った子から、募集中・商談中・お引き渡し済みに分けて掲載します。",
+  ご家族募集中:
+    "現在、ご家族募集中の子猫は掲載準備中です。見学や出産予定については、見学申し込みフォームからご相談ください。",
+  商談中: "現在、商談中の子猫は掲載していません。",
+  お引き渡し済み:
+    "お引き渡し済みの子は、写真とメモが整った子からこちらへ追加します。",
+};
+
 const createKittenMeta = (label, value) => {
   const row = document.createElement("div");
   const term = createTextElement("dt", "", label);
@@ -185,16 +195,20 @@ const renderKittenLists = () => {
       : visibleKittens.filter((kitten) => kitten.status === filter);
 
     if (filterLabel) {
-      filterLabel.textContent = filter === "all"
-        ? "すべての子猫を表示しています。"
-        : `${filter}の子猫を表示しています。`;
+      if (filter === "all" && visibleKittens.length === 0) {
+        filterLabel.textContent = "現在、掲載準備中です。";
+      } else {
+        filterLabel.textContent = filter === "all"
+          ? "すべての子猫を表示しています。"
+          : `${filter}の子猫を表示しています。`;
+      }
     }
 
     if (filteredKittens.length === 0) {
       const empty = createTextElement(
         "p",
         "kitten-empty",
-        "現在、このステータスの掲載はありません。次回募集や出産予約は見学申し込みからご相談ください。"
+        emptyKittenMessages[filter] || "現在、このステータスの掲載はありません。"
       );
       kittenList.replaceChildren(empty);
       return;
@@ -216,7 +230,17 @@ const renderKittenLists = () => {
 
   if (graduateList) {
     const graduates = visibleKittens.filter((kitten) => kitten.status === "お引き渡し済み");
-    graduateList.replaceChildren(...graduates.map((kitten) => createKittenCard(kitten, "graduates")));
+    if (graduates.length === 0) {
+      graduateList.replaceChildren(
+        createTextElement(
+          "p",
+          "kitten-empty",
+          "お引き渡し済みの子は、写真とメモが整った子からこちらへ追加します。"
+        )
+      );
+    } else {
+      graduateList.replaceChildren(...graduates.map((kitten) => createKittenCard(kitten, "graduates")));
+    }
   }
 };
 
